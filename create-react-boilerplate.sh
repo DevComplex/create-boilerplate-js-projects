@@ -156,7 +156,8 @@ echo "
   \"dependencies\": {
     \"react\": \"^16.8.6\",
     \"react-dom\": \"^16.8.6\",
-    \"styled-components\": \"^4.3.2\"
+    \"styled-components\": \"^4.3.2\",
+    \"react-router-dom\": \"^5.0.1\"
   }
 } " > package.json
 
