@@ -20,21 +20,22 @@ mkdir -p __tests__/unit
 touch src/app/js/index.js
 
 echo "
+/* eslint-disable import/no-extraneous-dependencies */
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
 configure({ adapter: new Adapter() });
+
 " > src/setupTests.js
 
-echo "
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+echo "* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 " > src/app/sass/default.scss
 
-echo "
-<!DOCTYPE html>
+echo "<!DOCTYPE html>
 <html>
   <head>
     <meta charset=\"UTF-8\">
@@ -47,8 +48,7 @@ echo "
 </html>
 " > src/app/index.html
 
-echo "
-const path = require('path');
+echo "const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
@@ -109,14 +109,36 @@ module.exports = {
   }
 }; " > webpack.config.js
 
-echo "
-{
-    \"presets\": [\"@babel/preset-react\", \"@babel/env\"]
+echo "{
+  \"presets\": [\"@babel/preset-react\", \"@babel/env\"]
 }
 " > .babelrc
 
-echo "
-{
+echo "{
+  module.exports = {
+    env: {
+      browser: true,
+      es6: true
+    },
+    extends: ['airbnb'],
+    globals: {
+      Atomics: 'readonly',
+      SharedArrayBuffer: 'readonly'
+    },
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true
+      },
+      ecmaVersion: 2018,
+      sourceType: 'module'
+    },
+    plugins: ['react'],
+    rules: {}
+  };
+}
+" > .eslintrc.js
+
+echo "{
   \"name\": \"project-boilerplate\",
   \"version\": \"1.0.0\",
   \"private\": true,
@@ -151,7 +173,12 @@ echo "
     \"style-loader\": \"^0.23.1\",
     \"webpack\": \"^4.35.0\",
     \"webpack-cli\": \"^3.3.4\",
-    \"webpack-dev-server\": \"^3.7.2\"
+    \"webpack-dev-server\": \"^3.7.2\",
+    \"eslint\": \"^5.16.0\",
+    \"eslint-config-airbnb\": \"^17.1.1\",
+    \"eslint-plugin-import\": \"^2.18.0\",
+    \"eslint-plugin-jsx-a11y\": \"^6.2.3\",
+    \"eslint-plugin-react\": \"^7.14.2\"
   },
   \"dependencies\": {
     \"react\": \"^16.8.6\",
@@ -159,7 +186,7 @@ echo "
     \"styled-components\": \"^4.3.2\",
     \"react-router-dom\": \"^5.0.1\"
   }
-} " > package.json
+}" > package.json
 
 yarn
 
