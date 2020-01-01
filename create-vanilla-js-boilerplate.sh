@@ -11,8 +11,19 @@ touch src/js/index.js
 mkdir -p src/sass
 touch src/sass/style.scss
 
-mkdir -p test/index/js
-touch test/index/js/indexUnitTest.js
+
+echo "<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <title>$1</title>
+  </head>
+  <body>
+    <div id=\"root\"></div>
+  </body>
+</html>
+" > src/index.html
 
 echo "
 const path = require('path');
@@ -37,7 +48,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: '$1'
+      title: '$1',
+      template: './src/index.html'
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
@@ -88,14 +100,7 @@ echo "
   \"license\": \"MIT\",
   \"scripts\": {
     \"build\": \"webpack\",
-    \"start\": \"webpack-dev-server --open\",
-    \"test\": \"jest test\"
-  },
-  \"jest\": {
-    \"moduleDirectories\": [
-      \"node_modules\",
-      \"./\"
-    ]
+    \"start\": \"webpack-dev-server --open\"
   },
   \"devDependencies\": {
     \"@babel/core\": \"^7.4.5\",
