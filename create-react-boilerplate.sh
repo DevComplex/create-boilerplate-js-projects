@@ -104,6 +104,7 @@ echo "{
     \"@babel/plugin-syntax-dynamic-import\": \"*\",
     \"@babel/core\": \"^7.5.4\",
     \"@babel/preset-env\": \"^7.5.4\",
+    \"@babel/runtime\": \"^7.7.7\",
     \"@babel/preset-react\": \"^7.0.0\",
     \"babel-loader\": \"^8.0.6\",
     \"clean-webpack-plugin\": \"^3.0.0\",
